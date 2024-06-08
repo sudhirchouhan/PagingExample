@@ -1,0 +1,43 @@
+﻿@model PagingExample.Models.Item
+@{
+    ViewData["Title"] = "CreateItem";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-3 border border-dark border-2 p-4 rounded">
+            <h1 class="text-center text-danger">Upload Image</h1>
+            <hr />
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input type="text" asp-for="Name" class="form-control" placeholder="Enter Item Name" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Brand"></label>
+                    <input type="text" asp-for="Brand" class="form-control" placeholder="Enter Brand" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description"></label>
+                    <textarea asp-for="Description" class="form-control" rows="2" cols="10"></textarea>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-8">
+                        <label asp-for="ImagePath"></label>
+                        <input type="file" asp-for="ImagePath" class="form-control" id="ChooseImg" />
+                    </div>
+                    <div class="col-md-4">
+                        <img src="https://placehold.jp/150*150.png" id="PrevImg" style="height:100px;width:100px;border:2px solid red;border-radius:10px;padding:10px;" alt="Choose Image" />
+                    </div>
+                </div>
+                <div class="form-group mt-2">
+                    <input type="submit" class="btn btn-sm btn-primary float-start" value="SUBMIT" />
+                    <a class="btn btn-sm btn-success m-1 float-end" asp-action="Index" asp-controller="Items">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/js/Item.js"></script>
+}
+

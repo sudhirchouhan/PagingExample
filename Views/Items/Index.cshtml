@@ -1,0 +1,86 @@
+﻿@model IEnumerable<PagingExample.Models.Item>
+@{
+    ViewData["Title"] = "CreateStudent";
+    Pager pager = new Pager();
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 offset-1">
+            <h5 class="text-center text-danger float-start">Item List</h5>
+            <a class="btn btn-sm btn-primary float-end p-1 m-1" asp-action="CreateItem" asp-controller="Items">Add Item</a>
+        </div>
+    </div>
+    <hr class="col-md-10 offset-1" />
+    <div class="row">
+        <div class="col-md-10 offset-1 border border-dark border-2 p-4 rounded">
+            @* <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">*@
+            <partial name="_Pager" model="@pager" />
+            <table class="table table-bordered table-hover" id="myTable">
+                <thead>
+                    <tr class="text-center bg-dark text-light">
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Brand</th>
+                        <th>Description</th>
+                        <th>Image</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center" id="tbody">
+                    @if (Model != null)
+                    {
+                        @foreach (var item in Model)
+                        {
+                            var imagePath = "/images/" + item.Path;
+                            <tr class="text-center align-middle" id="btr">
+                                <td>@item.ItemId</td>
+                                <td>@item.Name</td>
+                                <td>@item.Brand</td>
+                                <td>@item.Description</td>
+                                <td> <img src="@imagePath" height="50" width="50"></td>
+                                <td>
+                                    <input type="button" class="btn btn-sm btn-info" value="Edit">
+                                    <input type="button" class="btn btn-sm btn-danger" value="Delete">
+                                    <input type="button" class="btn btn-sm btn-warning" value="Details">
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            <partial name="_Pager" model="@pager" class="col-md-10 offset-1" />
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue, tbody;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        //tbody = table.getElementsByTagName("tbody");
+        //tr = tbody.getElementsByTagName("tr");
+       // tbody = document.getElementById("tbody");
+        tr = document.getElementById("btr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
